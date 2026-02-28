@@ -28,6 +28,8 @@ export { BulkService } from './bulk.js';
 export { VersionsService } from './versions.js';
 export { SearchService } from './search.js';
 export { TrashService } from './trash.js';
+export { ScanReportsService } from './scan_reports.js';
+export { AttestationService } from './attestation.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -79,6 +81,11 @@ export type {
   TrashListOptions,
   TrashListResponse,
   EmptyTrashResponse,
+  // Scan Reports
+  FileScanReport,
+  FileScanSummary,
+  ScanReportListOptions,
+  ScanReportListResponse,
   // Generic
   ListResponse,
   DataResponse,

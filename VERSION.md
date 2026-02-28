@@ -1,11 +1,25 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**0.2.0** - 2026-02-27
+**0.3.0** - 2026-02-27
 
 ---
 
 ## Versions
+
+### 0.3.0 - 2026-02-27
+**Type:** Minor - ScanReports and Attestation services
+
+### Ajouté
+- **`scan_reports.ts`**: `ScanReportsService` — getReport, list (paginated), getSummary
+- **`attestation.ts`**: `AttestationService` — generateLoi25 (PDF stream)
+- 4 new type interfaces: `FileScanReport`, `FileScanSummary`, `ScanReportListOptions`, `ScanReportListResponse`
+- Services registered in `ConformVault` client as `scanReports` and `attestation`
+- All new services and types exported from `index.ts`
+- VERSION bumped to `0.3.0`
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
 
 ### 0.2.0 - 2026-02-27
 **Type:** Minor - V2-4 SDK expansion: bulk, versions, search, trash services

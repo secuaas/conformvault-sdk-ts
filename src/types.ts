@@ -295,6 +295,48 @@ export interface EmptyTrashResponse {
   files_deleted: number;
 }
 
+// --- Scan Reports ---
+
+/** Represents a ClamAV file scan report. */
+export interface FileScanReport {
+  id: string;
+  file_id: string;
+  organization_id: string;
+  scan_engine: string;
+  engine_version?: string;
+  scan_status: string;
+  threat_name?: string;
+  file_size?: number;
+  mime_type?: string;
+  scan_duration_ms?: number;
+  scanned_at: string;
+}
+
+/** Aggregate scan statistics for an organization. */
+export interface FileScanSummary {
+  total_scans: number;
+  clean_count: number;
+  infected_count: number;
+  error_count: number;
+  skipped_count: number;
+  scan_engine: string;
+  engine_version: string;
+}
+
+/** Query parameters for listing scan reports. */
+export interface ScanReportListOptions {
+  limit?: number;
+  offset?: number;
+}
+
+/** Paginated response from listing scan reports. */
+export interface ScanReportListResponse {
+  reports: FileScanReport[];
+  total: number;
+  limit: number;
+  offset: number;
+}
+
 // --- Generic API Responses ---
 
 /** Wraps a paginated list response. */

@@ -20,12 +20,14 @@ import { BulkService } from './bulk.js';
 import { VersionsService } from './versions.js';
 import { SearchService } from './search.js';
 import { TrashService } from './trash.js';
+import { ScanReportsService } from './scan_reports.js';
+import { AttestationService } from './attestation.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
 
 /** SDK version. */
-export const VERSION = '0.1.0';
+export const VERSION = '0.3.0';
 
 /** User-Agent header sent with every request. */
 const USER_AGENT = `conformvault-ts/${VERSION}`;
@@ -77,6 +79,10 @@ export class ConformVault implements ConformVaultClient {
   public readonly search: SearchService;
   /** Trash / recycle bin operations (list, restore, delete, empty). */
   public readonly trash: TrashService;
+  /** File scan report operations (getReport, list, getSummary). */
+  public readonly scanReports: ScanReportsService;
+  /** Compliance attestation document generation (generateLoi25). */
+  public readonly attestation: AttestationService;
 
   /**
    * Create a new ConformVault client.
@@ -105,6 +111,8 @@ export class ConformVault implements ConformVaultClient {
     this.versions = new VersionsService(this);
     this.search = new SearchService(this);
     this.trash = new TrashService(this);
+    this.scanReports = new ScanReportsService(this);
+    this.attestation = new AttestationService(this);
   }
 
   /**
