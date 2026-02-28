@@ -16,6 +16,10 @@ import { SignaturesService } from './signatures.js';
 import { WebhooksService } from './webhooks.js';
 import { AuditService } from './audit.js';
 import { KeysService } from './keys.js';
+import { BulkService } from './bulk.js';
+import { VersionsService } from './versions.js';
+import { SearchService } from './search.js';
+import { TrashService } from './trash.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
@@ -33,7 +37,7 @@ const USER_AGENT = `conformvault-ts/${VERSION}`;
  */
 export interface ConformVaultClient {
   request<T>(method: string, path: string, body?: unknown): Promise<T>;
-  requestRaw(method: string, path: string): Promise<Response>;
+  requestRaw(method: string, path: string, body?: unknown): Promise<Response>;
 }
 
 /**
@@ -65,6 +69,14 @@ export class ConformVault implements ConformVaultClient {
   public readonly audit: AuditService;
   /** API key management operations (list, create, get, revoke, rotate). */
   public readonly keys: KeysService;
+  /** Bulk file operations (delete, move, download). */
+  public readonly bulk: BulkService;
+  /** File version operations (list, get, restore, delete). */
+  public readonly versions: VersionsService;
+  /** Search across files and folders. */
+  public readonly search: SearchService;
+  /** Trash / recycle bin operations (list, restore, delete, empty). */
+  public readonly trash: TrashService;
 
   /**
    * Create a new ConformVault client.
@@ -89,6 +101,10 @@ export class ConformVault implements ConformVaultClient {
     this.webhooks = new WebhooksService(this);
     this.audit = new AuditService(this);
     this.keys = new KeysService(this);
+    this.bulk = new BulkService(this);
+    this.versions = new VersionsService(this);
+    this.search = new SearchService(this);
+    this.trash = new TrashService(this);
   }
 
   /**
@@ -204,13 +220,19 @@ export class ConformVault implements ConformVaultClient {
    *
    * @internal Used by service classes.
    */
-  async requestRaw(method: string, path: string): Promise<Response> {
+  async requestRaw(method: string, path: string, body?: unknown): Promise<Response> {
     const url = this.baseURL + path;
 
     const headers: Record<string, string> = {
       'Authorization': `Bearer ${this.apiKey}`,
       'User-Agent': USER_AGENT,
     };
+
+    let fetchBody: BodyInit | undefined;
+    if (body !== undefined) {
+      headers['Content-Type'] = 'application/json';
+      fetchBody = JSON.stringify(body);
+    }
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.timeout);
@@ -220,6 +242,7 @@ export class ConformVault implements ConformVaultClient {
       response = await fetch(url, {
         method,
         headers,
+        body: fetchBody,
         signal: controller.signal,
       });
     } catch (err: unknown) {

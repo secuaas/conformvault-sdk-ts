@@ -194,6 +194,107 @@ export interface CreateAPIKeyResponse extends APIKey {
   key: string;
 }
 
+// --- Bulk Operations ---
+
+/** Input for bulk-deleting files. */
+export interface BulkDeleteRequest {
+  file_ids: string[];
+}
+
+/** Input for bulk-moving files. */
+export interface BulkMoveRequest {
+  file_ids: string[];
+  folder_id: string;
+}
+
+/** Input for bulk-downloading files as a ZIP. */
+export interface BulkDownloadRequest {
+  file_ids: string[];
+}
+
+/** Error detail for a single item in a bulk operation. */
+export interface BulkError {
+  file_id: string;
+  error: string;
+}
+
+/** Result summary from a bulk operation. */
+export interface BulkResult {
+  succeeded: number;
+  failed: number;
+  errors?: BulkError[];
+}
+
+// --- File Versions ---
+
+/** Represents a version of a file. */
+export interface FileVersion {
+  id: string;
+  file_id: string;
+  version: number;
+  size: number;
+  created_at: string;
+}
+
+// --- Search ---
+
+/** Query parameters for search operations. */
+export interface SearchOptions {
+  /** Resource types: "files", "folders", or "files,folders". */
+  types?: string;
+  /** Limit search to a specific folder. */
+  folderId?: string;
+  /** Page number (1-based). */
+  page?: number;
+  /** Results per page. */
+  pageSize?: number;
+}
+
+/** A single search result. */
+export interface SearchResult {
+  id: string;
+  /** "file" or "folder" */
+  type: string;
+  name: string;
+  path: string;
+  size: number;
+  content_type: string;
+  created_at: string;
+}
+
+/** Pagination metadata for search results. */
+export interface SearchPagination {
+  page: number;
+  page_size: number;
+  total: number;
+}
+
+/** Response from a search operation. */
+export interface SearchResponse {
+  data: SearchResult[];
+  pagination: SearchPagination;
+}
+
+// --- Trash ---
+
+/** Query parameters for listing trashed files. */
+export interface TrashListOptions {
+  page?: number;
+  limit?: number;
+}
+
+/** Response from listing trashed files. */
+export interface TrashListResponse {
+  data: File[];
+  pagination: Record<string, unknown>;
+}
+
+/** Response from emptying the trash. */
+export interface EmptyTrashResponse {
+  message: string;
+  files_deleted: number;
+}
+
 // --- Generic API Responses ---
 
 /** Wraps a paginated list response. */

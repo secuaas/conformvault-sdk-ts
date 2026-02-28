@@ -24,6 +24,10 @@ export { SignaturesService } from './signatures.js';
 export { WebhooksService } from './webhooks.js';
 export { AuditService } from './audit.js';
 export { KeysService } from './keys.js';
+export { BulkService } from './bulk.js';
+export { VersionsService } from './versions.js';
+export { SearchService } from './search.js';
+export { TrashService } from './trash.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -58,6 +62,23 @@ export type {
   APIKey,
   CreateAPIKeyRequest,
   CreateAPIKeyResponse,
+  // Bulk Operations
+  BulkDeleteRequest,
+  BulkMoveRequest,
+  BulkDownloadRequest,
+  BulkError,
+  BulkResult,
+  // File Versions
+  FileVersion,
+  // Search
+  SearchOptions,
+  SearchResult,
+  SearchPagination,
+  SearchResponse,
+  // Trash
+  TrashListOptions,
+  TrashListResponse,
+  EmptyTrashResponse,
   // Generic
   ListResponse,
   DataResponse,
