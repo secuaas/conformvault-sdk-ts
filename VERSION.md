@@ -1,11 +1,28 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**0.4.0** - 2026-02-28
+**2.0.0** - 2026-02-28
 
 ---
 
 ## Versions
+
+### 2.0.0 - 2026-02-28
+**Type:** Major - ConformVault SDK v2.0 — All Developer API services
+
+### Résumé
+Version majeure alignée avec le backend v2.0.0. SDK complet avec 14 services
+couvrant l'ensemble du Developer API ConformVault.
+
+### Services (14)
+- `files`, `folders`, `shareLinks`, `signatures`, `webhooks`, `audit`, `keys` (v0.1.0)
+- `bulk`, `versions`, `search`, `trash` (v0.2.0)
+- `scanReports`, `attestation` (v0.3.0)
+- `encryption` (v0.4.0 → v2.0.0)
+
+### Tests effectués
+- ✅ `npx tsc --noEmit` — success
+- ✅ `npm run build` (ESM + CJS) — success
 
 ### 0.4.0 - 2026-02-28
 **Type:** Minor - EncryptionService for cross-platform salt sync
