@@ -22,6 +22,7 @@ import { SearchService } from './search.js';
 import { TrashService } from './trash.js';
 import { ScanReportsService } from './scan_reports.js';
 import { AttestationService } from './attestation.js';
+import { EncryptionService } from './encryption.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
@@ -83,6 +84,8 @@ export class ConformVault implements ConformVaultClient {
   public readonly scanReports: ScanReportsService;
   /** Compliance attestation document generation (generateLoi25). */
   public readonly attestation: AttestationService;
+  /** Encryption salt sync for cross-platform E2E encryption. */
+  public readonly encryption: EncryptionService;
 
   /**
    * Create a new ConformVault client.
@@ -113,6 +116,7 @@ export class ConformVault implements ConformVaultClient {
     this.trash = new TrashService(this);
     this.scanReports = new ScanReportsService(this);
     this.attestation = new AttestationService(this);
+    this.encryption = new EncryptionService(this);
   }
 
   /**

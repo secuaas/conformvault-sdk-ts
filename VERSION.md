@@ -1,11 +1,24 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**0.3.0** - 2026-02-27
+**0.4.0** - 2026-02-28
 
 ---
 
 ## Versions
+
+### 0.4.0 - 2026-02-28
+**Type:** Minor - EncryptionService for cross-platform salt sync
+
+### Ajouté
+- **`encryption.ts`**: `EncryptionService` — `getSalt()` (returns null on 404), `setSalt(saltBase64)`
+- `EncryptionSaltResponse` type interface
+- Service registered in `ConformVault` client as `encryption`
+- Exported from `index.ts`
+
+### Tests effectués
+- ✅ `npx tsc --noEmit` — success
+- ✅ `npm run build` (ESM + CJS) — success
 
 ### 0.3.0 - 2026-02-27
 **Type:** Minor - ScanReports and Attestation services

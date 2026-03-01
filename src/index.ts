@@ -30,6 +30,7 @@ export { SearchService } from './search.js';
 export { TrashService } from './trash.js';
 export { ScanReportsService } from './scan_reports.js';
 export { AttestationService } from './attestation.js';
+export { EncryptionService } from './encryption.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -94,3 +95,6 @@ export type {
   // Options
   ConformVaultOptions,
 } from './types.js';
+
+// Encryption salt types
+export type { EncryptionSaltResponse } from './encryption.js';
