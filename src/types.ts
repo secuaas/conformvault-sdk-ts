@@ -359,6 +359,188 @@ export interface ErrorResponse {
   error: string;
 }
 
+// --- Transaction Folders ---
+
+/** Represents a transaction folder. */
+export interface TransactionFolder {
+  id: string;
+  name: string;
+  description?: string | null;
+  status: string;
+  due_date?: string | null;
+  progress?: TransactionProgress | null;
+  items?: TransactionFolderItem[];
+  created_at: string;
+  updated_at: string;
+}
+
+/** A single item in a transaction folder. */
+export interface TransactionFolderItem {
+  id: string;
+  transaction_id: string;
+  label: string;
+  description?: string | null;
+  required: boolean;
+  status: string;
+  file_id?: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Completion statistics for a transaction folder. */
+export interface TransactionProgress {
+  total: number;
+  completed: number;
+  pending: number;
+}
+
+/** Response wrapping a single transaction folder. */
+export interface TransactionFolderResponse extends TransactionFolder {}
+
+/** Paginated response for listing transaction folders. */
+export interface TransactionListResponse {
+  data: TransactionFolder[];
+  page: number;
+  limit: number;
+  total: number;
+}
+
+/** Input for creating a transaction folder. */
+export interface CreateTransactionRequest {
+  name: string;
+  description?: string;
+  due_date?: string;
+}
+
+/** Input for updating a transaction folder. */
+export interface UpdateTransactionRequest {
+  name?: string;
+  description?: string;
+  status?: string;
+  due_date?: string;
+}
+
+/** Input for adding an item to a transaction folder. */
+export interface CreateTransactionItemRequest {
+  label: string;
+  description?: string;
+  required?: boolean;
+}
+
+/** Input for updating a transaction folder item. */
+export interface UpdateTransactionItemRequest {
+  label?: string;
+  description?: string;
+  required?: boolean;
+  status?: string;
+  file_id?: string;
+}
+
+// --- Document Templates ---
+
+/** Represents a document template. */
+export interface DocumentTemplate {
+  id: string;
+  name: string;
+  description?: string | null;
+  content_type: string;
+  fields?: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+/** A document generated from a template. */
+export interface GeneratedDocument {
+  id: string;
+  template_id: string;
+  name: string;
+  size: number;
+  status: string;
+  file_id?: string;
+  created_at: string;
+}
+
+/** Paginated response for listing templates. */
+export interface TemplateListResponse {
+  data: DocumentTemplate[];
+  page: number;
+  limit: number;
+  total: number;
+}
+
+/** Input for creating a template. */
+export interface CreateTemplateRequest {
+  name: string;
+  content_type: string;
+  description?: string;
+  fields?: string[];
+}
+
+/** Input for updating a template. */
+export interface UpdateTemplateRequest {
+  name?: string;
+  description?: string;
+  fields?: string[];
+}
+
+/** Input for generating a document from a template. */
+export interface GenerateDocumentRequest {
+  data: Record<string, string>;
+  filename?: string;
+}
+
+// --- Batch Operations (V2) ---
+
+/** Represents a batch operation. */
+export interface BatchOperation {
+  id: string;
+  status: string;
+  type: string;
+  total: number;
+  completed: number;
+  failed: number;
+  items?: BatchOperationItem[];
+  created_at: string;
+  updated_at: string;
+}
+
+/** A single item within a batch operation. */
+export interface BatchOperationItem {
+  id: string;
+  index: number;
+  filename: string;
+  size: number;
+  mime_type: string;
+  status: string;
+  file_id?: string;
+  error?: string;
+}
+
+/** Response wrapping a single batch operation. */
+export interface BatchOperationResponse extends BatchOperation {}
+
+/** Paginated response for listing batch operations. */
+export interface BatchListResponse {
+  data: BatchOperation[];
+  page: number;
+  limit: number;
+  total: number;
+}
+
+/** Input for creating a batch operation. */
+export interface CreateBatchRequest {
+  type: string;
+  folder_id?: string;
+  items: CreateBatchItemDef[];
+}
+
+/** Defines a single item in a batch creation request. */
+export interface CreateBatchItemDef {
+  filename: string;
+  size: number;
+  mime_type: string;
+}
+
 // --- Client Options ---
 
 /** Configuration options for the ConformVault client. */

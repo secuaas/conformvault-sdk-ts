@@ -31,6 +31,9 @@ export { TrashService } from './trash.js';
 export { ScanReportsService } from './scan_reports.js';
 export { AttestationService } from './attestation.js';
 export { EncryptionService } from './encryption.js';
+export { TransactionsService } from './transactions.js';
+export { TemplatesService } from './templates.js';
+export { BatchesService } from './batches.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -92,6 +95,30 @@ export type {
   DataResponse,
   MessageResponse,
   ErrorResponse,
+  // Transaction Folders
+  TransactionFolder,
+  TransactionFolderItem,
+  TransactionProgress,
+  TransactionFolderResponse,
+  TransactionListResponse,
+  CreateTransactionRequest,
+  UpdateTransactionRequest,
+  CreateTransactionItemRequest,
+  UpdateTransactionItemRequest,
+  // Document Templates
+  DocumentTemplate,
+  GeneratedDocument,
+  TemplateListResponse,
+  CreateTemplateRequest,
+  UpdateTemplateRequest,
+  GenerateDocumentRequest,
+  // Batch Operations
+  BatchOperation,
+  BatchOperationItem,
+  BatchOperationResponse,
+  BatchListResponse,
+  CreateBatchRequest,
+  CreateBatchItemDef,
   // Options
   ConformVaultOptions,
 } from './types.js';

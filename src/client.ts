@@ -23,6 +23,9 @@ import { TrashService } from './trash.js';
 import { ScanReportsService } from './scan_reports.js';
 import { AttestationService } from './attestation.js';
 import { EncryptionService } from './encryption.js';
+import { TransactionsService } from './transactions.js';
+import { TemplatesService } from './templates.js';
+import { BatchesService } from './batches.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
@@ -86,6 +89,12 @@ export class ConformVault implements ConformVaultClient {
   public readonly attestation: AttestationService;
   /** Encryption salt sync for cross-platform E2E encryption. */
   public readonly encryption: EncryptionService;
+  /** Transaction folder operations (create, list, get, update, delete, items). */
+  public readonly transactions: TransactionsService;
+  /** Document template operations (create, list, get, update, delete, generate). */
+  public readonly templates: TemplatesService;
+  /** Batch operation endpoints (create, list, get, commit, cancel). */
+  public readonly batches: BatchesService;
 
   /**
    * Create a new ConformVault client.
@@ -117,6 +126,9 @@ export class ConformVault implements ConformVaultClient {
     this.scanReports = new ScanReportsService(this);
     this.attestation = new AttestationService(this);
     this.encryption = new EncryptionService(this);
+    this.transactions = new TransactionsService(this);
+    this.templates = new TemplatesService(this);
+    this.batches = new BatchesService(this);
   }
 
   /**
