@@ -1,11 +1,29 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.0.0** - 2026-02-28
+**2.1.0** - 2026-03-02
 
 ---
 
 ## Versions
+
+### 2.1.0 - 2026-03-02
+**Commit:** `66bbcb9`
+**Type:** Minor - Transactions, Templates, Batches services
+
+### Ajouté
+- **`transactions.ts`**: `TransactionsService` — create, list, get, update, delete, addItem, updateItem, deleteItem (8 methods)
+- **`templates.ts`**: `TemplatesService` — create, list, get, update, delete, generate (binary PDF via `requestRaw`), listDocuments (7 methods)
+- **`batches.ts`**: `BatchesService` — create, list, get, commit, cancel (5 methods)
+- 20 new type interfaces in `types.ts`: `TransactionFolder`, `TransactionFolderItem`, `TransactionProgress`, `TransactionFolderResponse`, `TransactionListResponse`, `CreateTransactionRequest`, `UpdateTransactionRequest`, `CreateTransactionItemRequest`, `UpdateTransactionItemRequest`, `DocumentTemplate`, `GeneratedDocument`, `TemplateListResponse`, `CreateTemplateRequest`, `UpdateTemplateRequest`, `GenerateDocumentRequest`, `BatchOperation`, `BatchOperationItem`, `BatchOperationResponse`, `BatchListResponse`, `CreateBatchRequest`, `CreateBatchItemDef`
+- Services registered in `ConformVault` client as `transactions`, `templates`, `batches`
+- All new services and types exported from `index.ts`
+- Total services: 14 → 17
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.0.0 - 2026-02-28
 **Type:** Major - ConformVault SDK v2.0 — All Developer API services
