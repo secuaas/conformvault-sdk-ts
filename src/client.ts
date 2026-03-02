@@ -31,7 +31,7 @@ import { BatchesService } from './batches.js';
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
 
 /** SDK version. */
-export const VERSION = '0.3.0';
+export const VERSION = '2.1.0';
 
 /** User-Agent header sent with every request. */
 const USER_AGENT = `conformvault-ts/${VERSION}`;
