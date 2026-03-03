@@ -1,11 +1,26 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.1.1** - 2026-03-03
+**2.1.2** - 2026-03-03
 
 ---
 
 ## Versions
+
+### 2.1.2 - 2026-03-03
+**Commit:** `pending`
+**Type:** Patch - Fix CJS compatibility for Electron (ERR_REQUIRE_ESM)
+
+### Corrigé
+- Build script now generates `dist/cjs/package.json` with `"type": "commonjs"` to override root `"type": "module"`, fixing `require()` from CJS contexts (Electron main process)
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+- ✅ CJS `require('./dist/cjs/index.js')` — success
+- ✅ ESM `import` — success
+- ✅ Electron desktop app loads without ERR_REQUIRE_ESM
+
+---
 
 ### 2.1.1 - 2026-03-03
 **Commit:** `1436b3f`
