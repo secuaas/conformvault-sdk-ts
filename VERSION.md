@@ -1,11 +1,23 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.1.0** - 2026-03-02
+**2.1.1** - 2026-03-03
 
 ---
 
 ## Versions
+
+### 2.1.1 - 2026-03-03
+**Commit:** `1436b3f`
+**Type:** Patch - Add CHANGELOG.md
+
+### Ajouté
+- `CHANGELOG.md` — Keep a Changelog format, extracted from VERSION.md history
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.1.0 - 2026-03-02
 **Commit:** `66bbcb9`
