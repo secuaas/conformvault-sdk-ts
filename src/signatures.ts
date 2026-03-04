@@ -21,6 +21,17 @@ export class SignaturesService {
   }
 
   /**
+   * List all signature envelopes for the organization.
+   */
+  async list(): Promise<SignatureEnvelope[]> {
+    const resp = await this.client.request<DataResponse<SignatureEnvelope[]>>(
+      'GET',
+      '/signatures',
+    );
+    return resp.data;
+  }
+
+  /**
    * Create a new signature envelope.
    */
   async create(request: CreateSignatureRequest): Promise<SignatureEnvelope> {
@@ -48,6 +59,13 @@ export class SignaturesService {
    */
   async downloadSigned(envelopeId: string): Promise<Response> {
     return this.client.requestRaw('GET', `/signatures/${envelopeId}/download`);
+  }
+
+  /**
+   * Download the audit trail (completion certificate) PDF.
+   */
+  async downloadAuditTrail(envelopeId: string): Promise<Response> {
+    return this.client.requestRaw('GET', `/signatures/${envelopeId}/audit-trail`);
   }
 
   /**
