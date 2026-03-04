@@ -176,6 +176,12 @@ export interface WebhookEndpoint {
   created_at: string;
 }
 
+/** Query parameters for listing webhook endpoints. */
+export interface WebhookListOptions {
+  page?: number;
+  limit?: number;
+}
+
 /** Input for registering a webhook endpoint. */
 export interface RegisterWebhookRequest {
   url: string;
@@ -220,6 +226,12 @@ export interface APIKey {
   scopes: string[];
   expires_at?: string | null;
   created_at: string;
+}
+
+/** Query parameters for listing API keys. */
+export interface KeyListOptions {
+  page?: number;
+  limit?: number;
 }
 
 /** Input for creating an API key. */

@@ -1,11 +1,31 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.2.3** - 2026-03-04
+**2.2.4** - 2026-03-04
 
 ---
 
 ## Versions
+
+### 2.2.4 - 2026-03-04
+**Commit:** `pending`
+**Type:** Patch - Add pagination support to webhooks and keys list methods
+
+### Ajouté
+- `WebhookListOptions` type with optional `page` and `limit` params
+- `KeyListOptions` type with optional `page` and `limit` params
+- `webhooks.list(opts?)` now accepts optional pagination parameters
+- `keys.list(opts?)` now accepts optional pagination parameters
+- Both new types exported from `index.ts`
+
+### Notes
+- `sharelinks.list()` already supported pagination via `ShareLinkListOptions` — no change needed
+- Pattern matches existing pagination in `files.list()`, `folders.list()`, `sharelinks.list()`
+
+### Tests effectués
+- `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.2.3 - 2026-03-04
 **Commit:** `pending`

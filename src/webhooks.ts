@@ -6,6 +6,7 @@ import { createHmac, timingSafeEqual } from 'node:crypto';
 import type { ConformVaultClient } from './client.js';
 import type {
   WebhookEndpoint,
+  WebhookListOptions,
   RegisterWebhookRequest,
   RegisterWebhookResponse,
   WebhookDelivery,
@@ -28,8 +29,15 @@ export class WebhooksService {
   /**
    * List all registered webhook endpoints.
    */
-  async list(): Promise<WebhookEndpoint[]> {
-    const resp = await this.client.request<ListResponse<WebhookEndpoint>>('GET', '/webhooks');
+  async list(opts?: WebhookListOptions): Promise<WebhookEndpoint[]> {
+    const params = new URLSearchParams();
+    if (opts?.page) params.set('page', String(opts.page));
+    if (opts?.limit) params.set('limit', String(opts.limit));
+
+    const query = params.toString();
+    const path = '/webhooks' + (query ? `?${query}` : '');
+
+    const resp = await this.client.request<ListResponse<WebhookEndpoint>>('GET', path);
     return resp.data;
   }
 

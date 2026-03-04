@@ -76,6 +76,7 @@ export type {
   EmbeddedSignLinkResponse,
   // Webhooks
   WebhookEndpoint,
+  WebhookListOptions,
   RegisterWebhookRequest,
   RegisterWebhookResponse,
   // Audit
@@ -83,6 +84,7 @@ export type {
   AuditListOptions,
   // API Keys
   APIKey,
+  KeyListOptions,
   CreateAPIKeyRequest,
   CreateAPIKeyResponse,
   // Bulk Operations

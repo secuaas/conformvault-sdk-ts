@@ -5,6 +5,7 @@
 import type { ConformVaultClient } from './client.js';
 import type {
   APIKey,
+  KeyListOptions,
   CreateAPIKeyRequest,
   CreateAPIKeyResponse,
   ListResponse,
@@ -32,8 +33,15 @@ export class KeysService {
   /**
    * List all API keys for the organization.
    */
-  async list(): Promise<APIKey[]> {
-    const resp = await this.client.request<ListResponse<APIKey>>('GET', '/keys');
+  async list(opts?: KeyListOptions): Promise<APIKey[]> {
+    const params = new URLSearchParams();
+    if (opts?.page) params.set('page', String(opts.page));
+    if (opts?.limit) params.set('limit', String(opts.limit));
+
+    const query = params.toString();
+    const path = '/keys' + (query ? `?${query}` : '');
+
+    const resp = await this.client.request<ListResponse<APIKey>>('GET', path);
     return resp.data;
   }
 

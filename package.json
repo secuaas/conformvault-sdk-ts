@@ -1,6 +1,6 @@
 {
   "name": "@conformvault/sdk",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Official TypeScript SDK for the ConformVault Developer API",
   "author": "SecuAAS <dev@secuaas.com>",
   "license": "MIT",
