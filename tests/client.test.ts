@@ -563,7 +563,7 @@ describe('ConformVault Client', () => {
     });
 
     it('should export correct VERSION', () => {
-      expect(VERSION).toBe('0.1.0');
+      expect(VERSION).toBe('2.2.0');
     });
   });
 });

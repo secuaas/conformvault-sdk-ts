@@ -41,7 +41,7 @@ import { PoliciesService } from './policies.js';
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
 
 /** SDK version. */
-export const VERSION = '2.1.0';
+export const VERSION = '2.2.0';
 
 /** User-Agent header sent with every request. */
 const USER_AGENT = `conformvault-ts/${VERSION}`;
@@ -296,7 +296,11 @@ export class ConformVault implements ConformVaultClient {
     };
 
     let fetchBody: BodyInit | undefined;
-    if (body !== undefined) {
+    if (body instanceof Blob || body instanceof ArrayBuffer || body instanceof Uint8Array || (typeof Buffer !== 'undefined' && Buffer.isBuffer(body))) {
+      // Binary body — pass through directly, let fetch set Content-Type or use octet-stream
+      headers['Content-Type'] = 'application/octet-stream';
+      fetchBody = body as BodyInit;
+    } else if (body !== undefined) {
       headers['Content-Type'] = 'application/json';
       fetchBody = JSON.stringify(body);
     }

@@ -33,7 +33,13 @@ export class UploadSessionsService {
    * Upload a chunk to an active upload session.
    */
   async uploadChunk(sessionId: string, chunkNumber: number, data: Blob | Buffer | ArrayBuffer): Promise<void> {
-    await this.client.request('PUT', `/upload-sessions/${sessionId}/chunks/${chunkNumber}`, data);
+    const resp = await this.client.requestRaw(
+      'PUT',
+      `/upload-sessions/${sessionId}/chunks/${chunkNumber}`,
+      data,
+    );
+    // Consume the response to ensure the request completed
+    await resp.text();
   }
 
   /**

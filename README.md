@@ -53,17 +53,38 @@ const client = new ConformVault('cvk_live_xxx', {
 });
 ```
 
-## Services
+## Services (28)
 
 | Service | Methods |
 |---------|---------|
-| `client.files` | `list`, `get`, `upload`, `download`, `delete` |
+| `client.files` | `list`, `get`, `upload`, `download`, `delete`, `getThumbnail`, `getScanReport` |
 | `client.folders` | `list`, `get`, `create`, `delete` |
 | `client.shareLinks` | `list`, `create`, `delete` |
 | `client.signatures` | `create`, `getStatus`, `downloadSigned`, `revoke` |
-| `client.webhooks` | `list`, `register`, `delete`, `test` |
-| `client.audit` | `list` |
+| `client.webhooks` | `list`, `register`, `delete`, `test`, `listDeliveries`, `getDelivery`, `replayDelivery`, `reEnable` |
+| `client.audit` | `list`, `search`, `export`, `getStats`, `getAnomalies` |
 | `client.keys` | `list`, `create`, `get`, `revoke`, `rotate` |
+| `client.bulk` | `delete`, `move`, `download` |
+| `client.versions` | `list`, `get`, `restore`, `delete` |
+| `client.search` | `search` |
+| `client.trash` | `list`, `restore`, `delete`, `empty` |
+| `client.scanReports` | `getReport`, `list`, `getSummary` |
+| `client.attestation` | `generateLoi25` |
+| `client.encryption` | `getSalt`, `setSalt` |
+| `client.transactions` | `create`, `list`, `get`, `update`, `delete`, `addItem`, `updateItem`, `deleteItem` |
+| `client.templates` | `create`, `list`, `get`, `update`, `delete`, `generate`, `listDocuments` |
+| `client.batches` | `create`, `list`, `get`, `commit`, `cancel` |
+| `client.metadata` | `addTags`, `removeTag`, `getTags`, `listByTag`, `setMetadata`, `getMetadata`, `deleteMetadataKey` |
+| `client.retention` | `create`, `list`, `get`, `update`, `delete` |
+| `client.legalHolds` | `create`, `list`, `get`, `release`, `addFiles`, `removeFile` |
+| `client.permissions` | `set`, `get`, `revoke` |
+| `client.comments` | `create`, `list`, `get`, `update`, `delete`, `getReplies` |
+| `client.quota` | `get` |
+| `client.rateLimit` | `get` |
+| `client.uploadSessions` | `create`, `uploadChunk`, `getStatus`, `complete`, `cancel` |
+| `client.jobs` | `create`, `list`, `get`, `cancel` |
+| `client.activitySubscriptions` | `subscribe`, `list`, `unsubscribe` |
+| `client.policies` | `getIPPolicy`, `setIPPolicy`, `getMFAPolicy`, `setMFAPolicy`, `getEncryptionSalt`, `setEncryptionSalt` |
 
 ## Error Handling
 

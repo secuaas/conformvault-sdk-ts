@@ -5,6 +5,30 @@ All notable changes to the ConformVault TypeScript SDK will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - 2026-03-04
+
+### Added
+- **Webhooks**: `listDeliveries`, `getDelivery`, `replayDelivery`, `reEnable`
+- **Audit**: `search`, `export`, `getStats`, `getAnomalies`
+- **Files**: `getThumbnail`, `getScanReport`
+- New service: **MetadataService** — addTags, removeTag, getTags, listByTag, setMetadata, getMetadata, deleteMetadataKey
+- New service: **RetentionService** — create, list, get, update, delete
+- New service: **LegalHoldsService** — create, list, get, release, addFiles, removeFile
+- New service: **PermissionsService** — set, get, revoke
+- New service: **CommentsService** — create, list, get, update, delete, getReplies
+- New service: **QuotaService** — get
+- New service: **RateLimitService** — get
+- New service: **UploadSessionsService** — create, uploadChunk, getStatus, complete, cancel
+- New service: **JobsService** — create, list, get, cancel
+- New service: **ActivitySubscriptionsService** — subscribe, list, unsubscribe
+- New service: **PoliciesService** — getIPPolicy, setIPPolicy, getMFAPolicy, setMFAPolicy, getEncryptionSalt, setEncryptionSalt
+- 30+ new TypeScript interfaces
+- Total services: 17 → 28
+
+### Fixed
+- `uploadChunk` now uses `requestRaw` to avoid corrupting binary data through `JSON.stringify`
+- `requestRaw` correctly passes through binary bodies (Blob, ArrayBuffer, Buffer, Uint8Array) with `application/octet-stream` content type
+
 ## [2.1.2] - 2026-03-03
 
 ### Fixed
