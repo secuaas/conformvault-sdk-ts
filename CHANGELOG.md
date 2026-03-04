@@ -5,6 +5,12 @@ All notable changes to the ConformVault TypeScript SDK will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.2] - 2026-03-04
+
+### Added
+- 77 unit tests using vitest — 13 new tests for bandwidth, dataExport, comments, jobs, keys instant revocation, all services check + VERSION fix
+- Test infrastructure with mock fetch and coverage for all 30 services
+
 ## [2.2.1] - 2026-03-04
 
 ### Fixed

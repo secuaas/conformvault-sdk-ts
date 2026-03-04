@@ -1,11 +1,25 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.2.1** - 2026-03-04
+**2.2.2** - 2026-03-04
 
 ---
 
 ## Versions
+
+### 2.2.2 - 2026-03-04
+**Commit:** `pending`
+**Type:** Patch - Add unit tests (77 tests via vitest)
+
+### Ajouté
+- 77 unit tests using vitest — 13 new tests for bandwidth, dataExport, comments, jobs, keys instant revocation, all services check + VERSION fix
+- Test infrastructure: mock fetch, coverage for all 30 services
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+- ✅ `npx vitest run` — 77 tests passing
+
+---
 
 ### 2.2.1 - 2026-03-04
 **Commit:** `pending`

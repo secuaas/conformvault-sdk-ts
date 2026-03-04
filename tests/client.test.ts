@@ -563,7 +563,243 @@ describe('ConformVault Client', () => {
     });
 
     it('should export correct VERSION', () => {
-      expect(VERSION).toBe('2.2.0');
+      expect(VERSION).toBe('2.2.2');
+    });
+  });
+
+  describe('bandwidth', () => {
+    it('should get bandwidth summary', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { total_upload_bytes: 1048576, total_download_bytes: 2097152, period: '2026-03' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const summary = await client.bandwidth.getSummary();
+
+      expect(summary.total_upload_bytes).toBe(1048576);
+      expect(summary.total_download_bytes).toBe(2097152);
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/bandwidth`);
+      expect((init as RequestInit).method).toBe('GET');
+    });
+
+    it('should get daily bandwidth stats', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: [
+            { date: '2026-03-01', upload_bytes: 1000, download_bytes: 2000 },
+            { date: '2026-03-02', upload_bytes: 1500, download_bytes: 3000 },
+          ],
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const daily = await client.bandwidth.getDaily();
+
+      expect(daily).toHaveLength(2);
+      expect(daily[0].date).toBe('2026-03-01');
+
+      const [url] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/bandwidth/daily`);
+    });
+  });
+
+  describe('dataExport', () => {
+    it('should export user data', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { user_id: 'usr-1', status: 'completed', url: 'https://export.example.com/data.json', created_at: '2026-03-01T00:00:00Z' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const exp = await client.dataExport.export('usr-1');
+
+      expect(exp.user_id).toBe('usr-1');
+      expect(exp.status).toBe('completed');
+
+      const [url] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/users/usr-1/export`);
+    });
+  });
+
+  describe('comments', () => {
+    it('should create a comment', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { id: 'c1', file_id: 'f1', content: 'Nice file', created_at: '2026-03-01T00:00:00Z' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const comment = await client.comments.create({ file_id: 'f1', content: 'Nice file' });
+
+      expect(comment.id).toBe('c1');
+      expect(comment.content).toBe('Nice file');
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/comments`);
+      expect((init as RequestInit).method).toBe('POST');
+    });
+
+    it('should list comments by file ID', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: [
+            { id: 'c1', file_id: 'f1', content: 'Comment 1', created_at: '2026-03-01T00:00:00Z' },
+          ],
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const comments = await client.comments.list('f1');
+
+      expect(comments).toHaveLength(1);
+
+      const [url] = fetchSpy.mock.calls[0];
+      expect(url).toContain('/comments?file_id=f1');
+    });
+
+    it('should update a comment with PUT', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { id: 'c1', file_id: 'f1', content: 'Updated', created_at: '2026-03-01T00:00:00Z' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const comment = await client.comments.update('c1', { content: 'Updated' });
+
+      expect(comment.content).toBe('Updated');
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/comments/c1`);
+      expect((init as RequestInit).method).toBe('PUT');
+    });
+
+    it('should delete a comment', async () => {
+      fetchSpy.mockResolvedValueOnce(new Response(null, { status: 204 }));
+
+      const client = new ConformVault('cvk_test_key');
+      await expect(client.comments.delete('c1')).resolves.toBeUndefined();
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/comments/c1`);
+      expect((init as RequestInit).method).toBe('DELETE');
+    });
+
+    it('should get replies', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, { data: [] }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const replies = await client.comments.getReplies('c1');
+
+      expect(replies).toHaveLength(0);
+
+      const [url] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/comments/c1/replies`);
+    });
+  });
+
+  describe('jobs', () => {
+    it('should create a job', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { id: 'j1', type: 'bulk-download', status: 'pending', created_at: '2026-03-01T00:00:00Z' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const job = await client.jobs.create({ type: 'bulk-download', params: { file_ids: ['f1'] } });
+
+      expect(job.id).toBe('j1');
+      expect(job.status).toBe('pending');
+
+      const [, init] = fetchSpy.mock.calls[0];
+      expect((init as RequestInit).method).toBe('POST');
+    });
+
+    it('should cancel a job with DELETE', async () => {
+      fetchSpy.mockResolvedValueOnce(new Response(null, { status: 204 }));
+
+      const client = new ConformVault('cvk_test_key');
+      await expect(client.jobs.cancel('j1')).resolves.toBeUndefined();
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/jobs/j1`);
+      expect((init as RequestInit).method).toBe('DELETE');
+    });
+  });
+
+  describe('keys - instant revocation', () => {
+    it('should instant revoke a key', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, { message: 'key revoked' }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      await client.keys.instantRevoke('k1');
+
+      const [url, init] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/api-keys/k1/revoke`);
+      expect((init as RequestInit).method).toBe('POST');
+    });
+
+    it('should get revocation status', async () => {
+      fetchSpy.mockResolvedValueOnce(
+        mockResponse(200, {
+          data: { key_id: 'k1', is_revoked: true, revoked_at: '2026-03-01T00:00:00Z' },
+        }),
+      );
+
+      const client = new ConformVault('cvk_test_key');
+      const status = await client.keys.getRevocationStatus('k1');
+
+      expect(status.is_revoked).toBe(true);
+
+      const [url] = fetchSpy.mock.calls[0];
+      expect(url).toBe(`${DEFAULT_BASE_URL}/api-keys/k1/revocation-status`);
+    });
+  });
+
+  describe('constructor - all services registered', () => {
+    it('should expose all 30 services', () => {
+      const client = new ConformVault('cvk_test_key');
+      expect(client.files).toBeDefined();
+      expect(client.folders).toBeDefined();
+      expect(client.shareLinks).toBeDefined();
+      expect(client.signatures).toBeDefined();
+      expect(client.webhooks).toBeDefined();
+      expect(client.audit).toBeDefined();
+      expect(client.keys).toBeDefined();
+      expect(client.bulk).toBeDefined();
+      expect(client.versions).toBeDefined();
+      expect(client.search).toBeDefined();
+      expect(client.trash).toBeDefined();
+      expect(client.scanReports).toBeDefined();
+      expect(client.attestation).toBeDefined();
+      expect(client.encryption).toBeDefined();
+      expect(client.transactions).toBeDefined();
+      expect(client.templates).toBeDefined();
+      expect(client.batches).toBeDefined();
+      expect(client.metadata).toBeDefined();
+      expect(client.retention).toBeDefined();
+      expect(client.legalHolds).toBeDefined();
+      expect(client.permissions).toBeDefined();
+      expect(client.comments).toBeDefined();
+      expect(client.quota).toBeDefined();
+      expect(client.rateLimit).toBeDefined();
+      expect(client.uploadSessions).toBeDefined();
+      expect(client.jobs).toBeDefined();
+      expect(client.activitySubscriptions).toBeDefined();
+      expect(client.policies).toBeDefined();
+      expect(client.bandwidth).toBeDefined();
+      expect(client.dataExport).toBeDefined();
     });
   });
 });
