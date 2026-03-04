@@ -43,7 +43,7 @@ import { DataExportService } from './data_export.js';
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
 
 /** SDK version. */
-export const VERSION = '2.2.2';
+export const VERSION = '2.2.3';
 
 /** User-Agent header sent with every request. */
 const USER_AGENT = `conformvault-ts/${VERSION}`;

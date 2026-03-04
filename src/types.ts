@@ -94,6 +94,46 @@ export interface CreateShareLinkRequest {
 
 // --- Signatures ---
 
+/** Dimensions of a single PDF page. */
+export interface PDFPageDimension {
+  page_number: number;
+  width: number;
+  height: number;
+}
+
+/** A suggested form field placement detected via PDF analysis. */
+export interface PDFFieldSuggestion {
+  signer_index: number;
+  field_type: string;
+  page_number: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  confidence: string;
+  label?: string;
+}
+
+/** Result of analyzing a PDF for signature field placement. */
+export interface PDFAnalysisResult {
+  page_count: number;
+  page_dimensions: PDFPageDimension[];
+  suggested_fields: PDFFieldSuggestion[];
+  detected_labels?: string[];
+}
+
+/** Input for requesting PDF analysis. */
+export interface AnalyzePDFRequest {
+  file_id: string;
+  signer_count?: number;
+}
+
+/** Response containing an embedded signing link. */
+export interface EmbeddedSignLinkResponse {
+  sign_link: string;
+  envelope_id: string;
+}
+
 /** Represents a signature envelope. */
 export interface SignatureEnvelope {
   id: string;

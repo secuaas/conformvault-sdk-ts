@@ -1,11 +1,27 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.2.2** - 2026-03-04
+**2.2.3** - 2026-03-04
 
 ---
 
 ## Versions
+
+### 2.2.3 - 2026-03-04
+**Commit:** `pending`
+**Type:** Patch - Add 3 new signature methods (analyzePDF, previewPDF, getEmbeddedSignLink)
+
+### Ajouté
+- `analyzePDF(request)` — Analyze a PDF to detect page dimensions and suggest signature field placements
+- `previewPDF(fileId)` — Preview a PDF file (returns raw Response for streaming)
+- `getEmbeddedSignLink(envelopeId, signerEmail, redirectUrl?)` — Get an embedded signing link for a specific signer
+- 5 new type interfaces: `PDFPageDimension`, `PDFFieldSuggestion`, `PDFAnalysisResult`, `AnalyzePDFRequest`, `EmbeddedSignLinkResponse`
+- All new types exported from `index.ts`
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.2.2 - 2026-03-04
 **Commit:** `pending`

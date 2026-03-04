@@ -69,6 +69,11 @@ export type {
   SignatureEnvelope,
   CreateSignatureSigner,
   CreateSignatureRequest,
+  PDFPageDimension,
+  PDFFieldSuggestion,
+  PDFAnalysisResult,
+  AnalyzePDFRequest,
+  EmbeddedSignLinkResponse,
   // Webhooks
   WebhookEndpoint,
   RegisterWebhookRequest,
