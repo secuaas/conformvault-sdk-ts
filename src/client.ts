@@ -36,12 +36,14 @@ import { UploadSessionsService } from './upload_sessions.js';
 import { JobsService } from './jobs.js';
 import { ActivitySubscriptionsService } from './activity_subscriptions.js';
 import { PoliciesService } from './policies.js';
+import { BandwidthService } from './bandwidth.js';
+import { DataExportService } from './data_export.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
 
 /** SDK version. */
-export const VERSION = '2.2.0';
+export const VERSION = '2.2.1';
 
 /** User-Agent header sent with every request. */
 const USER_AGENT = `conformvault-ts/${VERSION}`;
@@ -127,6 +129,10 @@ export class ConformVault implements ConformVaultClient {
   public readonly activitySubscriptions: ActivitySubscriptionsService;
   /** Security policy operations (IP, MFA, encryption salt). */
   public readonly policies: PoliciesService;
+  /** Bandwidth analytics (summary, daily). */
+  public readonly bandwidth: BandwidthService;
+  /** User data export (GDPR/Loi 25). */
+  public readonly dataExport: DataExportService;
 
   /**
    * Create a new ConformVault client.
@@ -172,6 +178,8 @@ export class ConformVault implements ConformVaultClient {
     this.jobs = new JobsService(this);
     this.activitySubscriptions = new ActivitySubscriptionsService(this);
     this.policies = new PoliciesService(this);
+    this.bandwidth = new BandwidthService(this);
+    this.dataExport = new DataExportService(this);
   }
 
   /**

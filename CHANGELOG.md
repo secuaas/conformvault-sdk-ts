@@ -5,6 +5,25 @@ All notable changes to the ConformVault TypeScript SDK will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] - 2026-03-04
+
+### Fixed
+- **Policies**: paths corrected from `/policies/ip` to `/ip-policy`, `/policies/mfa` to `/mfa-policy`; removed duplicate encryption salt methods from `policies.ts` (already in `encryption.ts`)
+- **Activity Subscriptions**: path corrected from `/activity/subscriptions` to `/activity-subscriptions`
+- **Comments**: rewritten from nested `/files/{id}/comments` to flat `/comments` routes; update method changed from PATCH to PUT
+- **Jobs Cancel**: changed from `POST /jobs/{id}/cancel` to `DELETE /jobs/{id}`
+- **Batches Cancel**: changed from `POST /batches/{id}/cancel` to `DELETE /batches/{id}`
+- **Retention Update**: changed from PATCH to PUT
+
+### Added
+- `BandwidthService` — getSummary, getDaily (2 methods)
+- `DataExportService` — export for GDPR/Loi 25 (1 method)
+- `KeysService`: instantRevoke, getRevocationStatus (2 new methods via `/api-keys/` path)
+- `BatchesService`: uploadFile (1 new method)
+- New types: `BandwidthSummary`, `DailyBandwidthStats`, `KeyRevocationStatus`, `UserDataExport`
+- `file_id` field added to `CreateCommentRequest`
+- Total services: 28 → 30
+
 ## [2.2.0] - 2026-03-04
 
 ### Added

@@ -8,8 +8,6 @@ import type {
   SetIPPolicyRequest,
   MFAPolicy,
   SetMFAPolicyRequest,
-  EncryptionSalt,
-  SetEncryptionSaltRequest,
   DataResponse,
 } from './types.js';
 
@@ -28,7 +26,7 @@ export class PoliciesService {
    * Get the current IP allowlist/denylist policy.
    */
   async getIPPolicy(): Promise<IPPolicy> {
-    const resp = await this.client.request<DataResponse<IPPolicy>>('GET', '/policies/ip');
+    const resp = await this.client.request<DataResponse<IPPolicy>>('GET', '/ip-policy');
     return resp.data;
   }
 
@@ -36,7 +34,7 @@ export class PoliciesService {
    * Set the IP allowlist/denylist policy.
    */
   async setIPPolicy(request: SetIPPolicyRequest): Promise<IPPolicy> {
-    const resp = await this.client.request<DataResponse<IPPolicy>>('PUT', '/policies/ip', request);
+    const resp = await this.client.request<DataResponse<IPPolicy>>('PUT', '/ip-policy', request);
     return resp.data;
   }
 
@@ -44,7 +42,7 @@ export class PoliciesService {
    * Get the current MFA policy.
    */
   async getMFAPolicy(): Promise<MFAPolicy> {
-    const resp = await this.client.request<DataResponse<MFAPolicy>>('GET', '/policies/mfa');
+    const resp = await this.client.request<DataResponse<MFAPolicy>>('GET', '/mfa-policy');
     return resp.data;
   }
 
@@ -52,23 +50,8 @@ export class PoliciesService {
    * Set the MFA policy.
    */
   async setMFAPolicy(request: SetMFAPolicyRequest): Promise<MFAPolicy> {
-    const resp = await this.client.request<DataResponse<MFAPolicy>>('PUT', '/policies/mfa', request);
+    const resp = await this.client.request<DataResponse<MFAPolicy>>('PUT', '/mfa-policy', request);
     return resp.data;
   }
 
-  /**
-   * Get the encryption salt.
-   */
-  async getEncryptionSalt(): Promise<EncryptionSalt> {
-    const resp = await this.client.request<DataResponse<EncryptionSalt>>('GET', '/policies/encryption-salt');
-    return resp.data;
-  }
-
-  /**
-   * Set the encryption salt.
-   */
-  async setEncryptionSalt(request: SetEncryptionSaltRequest): Promise<EncryptionSalt> {
-    const resp = await this.client.request<DataResponse<EncryptionSalt>>('PUT', '/policies/encryption-salt', request);
-    return resp.data;
-  }
 }

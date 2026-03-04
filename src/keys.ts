@@ -11,6 +11,13 @@ import type {
   DataResponse,
 } from './types.js';
 
+/** API key revocation status. */
+export interface KeyRevocationStatus {
+  key_id: string;
+  revoked: boolean;
+  revoked_at?: string;
+}
+
 /**
  * Service for managing API keys in ConformVault.
  */
@@ -65,6 +72,17 @@ export class KeysService {
       'POST',
       `/keys/${keyId}/rotate`,
     );
+    return resp.data;
+  }
+
+  /** Instantly revoke an API key via Redis. */
+  async instantRevoke(keyId: string): Promise<void> {
+    await this.client.request('POST', `/api-keys/${keyId}/revoke`);
+  }
+
+  /** Check the revocation status of an API key. */
+  async getRevocationStatus(keyId: string): Promise<KeyRevocationStatus> {
+    const resp = await this.client.request<DataResponse<KeyRevocationStatus>>('GET', `/api-keys/${keyId}/revocation-status`);
     return resp.data;
   }
 }

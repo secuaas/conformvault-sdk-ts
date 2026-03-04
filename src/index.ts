@@ -44,6 +44,8 @@ export { UploadSessionsService } from './upload_sessions.js';
 export { JobsService } from './jobs.js';
 export { ActivitySubscriptionsService } from './activity_subscriptions.js';
 export { PoliciesService } from './policies.js';
+export { BandwidthService } from './bandwidth.js';
+export { DataExportService } from './data_export.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -181,6 +183,15 @@ export type {
   EncryptionSalt,
   SetEncryptionSaltRequest,
 } from './types.js';
+
+// Bandwidth types
+export type { BandwidthSummary, DailyBandwidthStats } from './bandwidth.js';
+
+// Key revocation types
+export type { KeyRevocationStatus } from './keys.js';
+
+// Data export types
+export type { UserDataExport } from './data_export.js';
 
 // Encryption salt types
 export type { EncryptionSaltResponse } from './encryption.js';

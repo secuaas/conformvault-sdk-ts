@@ -690,6 +690,7 @@ export interface Comment {
 }
 
 export interface CreateCommentRequest {
+  file_id: string;
   content: string;
   parent_id?: string;
 }

@@ -50,7 +50,7 @@ export class RetentionService {
    * Update a retention policy.
    */
   async update(policyId: string, request: UpdateRetentionPolicyRequest): Promise<RetentionPolicy> {
-    const resp = await this.client.request<DataResponse<RetentionPolicy>>('PATCH', `/retention-policies/${policyId}`, request);
+    const resp = await this.client.request<DataResponse<RetentionPolicy>>('PUT', `/retention-policies/${policyId}`, request);
     return resp.data;
   }
 

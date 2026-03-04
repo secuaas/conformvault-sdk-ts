@@ -51,6 +51,13 @@ export class BatchesService {
 
   /** Cancel a batch operation. */
   async cancel(batchId: string): Promise<void> {
-    await this.client.request('POST', `/batches/${batchId}/cancel`);
+    await this.client.request('DELETE', `/batches/${batchId}`);
+  }
+
+  /** Upload a file to a batch operation at the given index. */
+  async uploadFile(batchId: string, index: number, data: Blob | ArrayBuffer | Buffer): Promise<BatchOperationResponse> {
+    const resp = await this.client.requestRaw('PUT', `/batches/${batchId}/files/${index}`, data);
+    const json = await resp.json() as DataResponse<BatchOperationResponse>;
+    return json.data;
   }
 }

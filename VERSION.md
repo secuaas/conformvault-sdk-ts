@@ -1,11 +1,37 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.2.0** - 2026-03-04
+**2.2.1** - 2026-03-04
 
 ---
 
 ## Versions
+
+### 2.2.1 - 2026-03-04
+**Commit:** `pending`
+**Type:** Patch - Fix 9 route mismatches + add 6 missing routes (backend alignment)
+
+### Corrigé
+- **Policies**: `/policies/ip` → `/ip-policy`, `/policies/mfa` → `/mfa-policy`; removed duplicate encryption salt methods (already in `encryption.ts`)
+- **Activity Subscriptions**: `/activity/subscriptions` → `/activity-subscriptions`
+- **Comments**: Rewritten from nested `/files/{id}/comments` to flat `/comments` routes; `file_id` moved to request body/query param; update changed from PATCH to PUT
+- **Jobs Cancel**: `POST /jobs/{id}/cancel` → `DELETE /jobs/${id}`
+- **Batches Cancel**: `POST /batches/{id}/cancel` → `DELETE /batches/{id}`
+- **Retention Update**: PATCH → PUT
+
+### Ajouté
+- **`bandwidth.ts`**: `BandwidthService` — getSummary (`GET /bandwidth`), getDaily (`GET /bandwidth/daily`)
+- **`data_export.ts`**: `DataExportService` — export (`GET /users/{id}/export`) for GDPR/Loi 25
+- **`keys.ts`**: instantRevoke (`POST /api-keys/{id}/revoke`), getRevocationStatus (`GET /api-keys/{id}/revocation-status`)
+- **`batches.ts`**: uploadFile (`PUT /batches/{id}/files/{index}`)
+- New types: `BandwidthSummary`, `DailyBandwidthStats`, `KeyRevocationStatus`, `UserDataExport`
+- `file_id` field added to `CreateCommentRequest`
+- Total services: 28 → 30
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.2.0 - 2026-03-04
 **Commit:** `pending`

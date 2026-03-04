@@ -49,6 +49,6 @@ export class JobsService {
    * Cancel a running job.
    */
   async cancel(jobId: string): Promise<void> {
-    await this.client.request('POST', `/jobs/${jobId}/cancel`);
+    await this.client.request('DELETE', `/jobs/${jobId}`);
   }
 }

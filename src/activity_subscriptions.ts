@@ -25,7 +25,7 @@ export class ActivitySubscriptionsService {
    * Subscribe to activity events.
    */
   async subscribe(request: CreateActivitySubscriptionRequest): Promise<ActivitySubscription> {
-    const resp = await this.client.request<DataResponse<ActivitySubscription>>('POST', '/activity/subscriptions', request);
+    const resp = await this.client.request<DataResponse<ActivitySubscription>>('POST', '/activity-subscriptions', request);
     return resp.data;
   }
 
@@ -33,7 +33,7 @@ export class ActivitySubscriptionsService {
    * List all activity subscriptions.
    */
   async list(): Promise<ActivitySubscription[]> {
-    const resp = await this.client.request<ListResponse<ActivitySubscription>>('GET', '/activity/subscriptions');
+    const resp = await this.client.request<ListResponse<ActivitySubscription>>('GET', '/activity-subscriptions');
     return resp.data;
   }
 
@@ -41,6 +41,6 @@ export class ActivitySubscriptionsService {
    * Unsubscribe from activity events.
    */
   async unsubscribe(subscriptionId: string): Promise<void> {
-    await this.client.request('DELETE', `/activity/subscriptions/${subscriptionId}`);
+    await this.client.request('DELETE', `/activity-subscriptions/${subscriptionId}`);
   }
 }
