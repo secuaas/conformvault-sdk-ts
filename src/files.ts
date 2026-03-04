@@ -100,4 +100,19 @@ export class FilesService {
   async delete(fileId: string): Promise<void> {
     await this.client.request('DELETE', `/files/${fileId}`);
   }
+
+  /**
+   * Get a thumbnail image for a file. Returns a raw Response for streaming.
+   */
+  async getThumbnail(fileId: string): Promise<Response> {
+    return this.client.requestRaw('GET', `/files/${fileId}/thumbnail`);
+  }
+
+  /**
+   * Get the security scan report for a file.
+   */
+  async getScanReport(fileId: string): Promise<unknown> {
+    const resp = await this.client.request<DataResponse<unknown>>('GET', `/files/${fileId}/scan-report`);
+    return resp.data;
+  }
 }

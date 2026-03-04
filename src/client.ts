@@ -26,6 +26,16 @@ import { EncryptionService } from './encryption.js';
 import { TransactionsService } from './transactions.js';
 import { TemplatesService } from './templates.js';
 import { BatchesService } from './batches.js';
+import { MetadataService } from './metadata.js';
+import { RetentionService } from './retention.js';
+import { LegalHoldsService } from './legal_holds.js';
+import { PermissionsService } from './permissions.js';
+import { CommentsService } from './comments.js';
+import { QuotaService, RateLimitService } from './quota.js';
+import { UploadSessionsService } from './upload_sessions.js';
+import { JobsService } from './jobs.js';
+import { ActivitySubscriptionsService } from './activity_subscriptions.js';
+import { PoliciesService } from './policies.js';
 
 /** Default base URL for the ConformVault Developer API. */
 export const DEFAULT_BASE_URL = 'https://api.conformvault.com/dev/v1';
@@ -95,6 +105,28 @@ export class ConformVault implements ConformVaultClient {
   public readonly templates: TemplatesService;
   /** Batch operation endpoints (create, list, get, commit, cancel). */
   public readonly batches: BatchesService;
+  /** File tags and custom metadata operations. */
+  public readonly metadata: MetadataService;
+  /** Retention policy operations (create, list, get, update, delete). */
+  public readonly retention: RetentionService;
+  /** Legal hold operations (create, list, get, release, files). */
+  public readonly legalHolds: LegalHoldsService;
+  /** Folder permission operations (set, get, revoke). */
+  public readonly permissions: PermissionsService;
+  /** File comment operations (create, list, get, update, delete, replies). */
+  public readonly comments: CommentsService;
+  /** Storage quota information. */
+  public readonly quota: QuotaService;
+  /** Rate limit information. */
+  public readonly rateLimit: RateLimitService;
+  /** Chunked upload session operations (create, uploadChunk, getStatus, complete, cancel). */
+  public readonly uploadSessions: UploadSessionsService;
+  /** Asynchronous job operations (create, list, get, cancel). */
+  public readonly jobs: JobsService;
+  /** Activity subscription operations (subscribe, list, unsubscribe). */
+  public readonly activitySubscriptions: ActivitySubscriptionsService;
+  /** Security policy operations (IP, MFA, encryption salt). */
+  public readonly policies: PoliciesService;
 
   /**
    * Create a new ConformVault client.
@@ -129,6 +161,17 @@ export class ConformVault implements ConformVaultClient {
     this.transactions = new TransactionsService(this);
     this.templates = new TemplatesService(this);
     this.batches = new BatchesService(this);
+    this.metadata = new MetadataService(this);
+    this.retention = new RetentionService(this);
+    this.legalHolds = new LegalHoldsService(this);
+    this.permissions = new PermissionsService(this);
+    this.comments = new CommentsService(this);
+    this.quota = new QuotaService(this);
+    this.rateLimit = new RateLimitService(this);
+    this.uploadSessions = new UploadSessionsService(this);
+    this.jobs = new JobsService(this);
+    this.activitySubscriptions = new ActivitySubscriptionsService(this);
+    this.policies = new PoliciesService(this);
   }
 
   /**

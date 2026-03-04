@@ -8,7 +8,9 @@ import type {
   WebhookEndpoint,
   RegisterWebhookRequest,
   RegisterWebhookResponse,
+  WebhookDelivery,
   ListResponse,
+  DataResponse,
 } from './types.js';
 import { ConformVaultError } from './errors.js';
 
@@ -56,6 +58,45 @@ export class WebhooksService {
    */
   async test(webhookId: string): Promise<void> {
     await this.client.request('POST', `/webhooks/${webhookId}/test`);
+  }
+
+  /**
+   * List delivery attempts for a webhook endpoint.
+   */
+  async listDeliveries(webhookId: string): Promise<WebhookDelivery[]> {
+    const resp = await this.client.request<ListResponse<WebhookDelivery>>(
+      'GET',
+      `/webhooks/${webhookId}/deliveries`,
+    );
+    return resp.data;
+  }
+
+  /**
+   * Get a specific delivery attempt by ID.
+   */
+  async getDelivery(webhookId: string, deliveryId: string): Promise<WebhookDelivery> {
+    const resp = await this.client.request<DataResponse<WebhookDelivery>>(
+      'GET',
+      `/webhooks/${webhookId}/deliveries/${deliveryId}`,
+    );
+    return resp.data;
+  }
+
+  /**
+   * Replay a specific delivery attempt.
+   */
+  async replayDelivery(webhookId: string, deliveryId: string): Promise<void> {
+    await this.client.request(
+      'POST',
+      `/webhooks/${webhookId}/deliveries/${deliveryId}/replay`,
+    );
+  }
+
+  /**
+   * Re-enable a disabled webhook endpoint.
+   */
+  async reEnable(webhookId: string): Promise<void> {
+    await this.client.request('POST', `/webhooks/${webhookId}/enable`);
   }
 }
 

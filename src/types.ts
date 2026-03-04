@@ -552,3 +552,254 @@ export interface ConformVaultOptions {
   /** Maximum number of automatic retries on rate-limit (429) responses. Defaults to 3. */
   maxRetries?: number;
 }
+
+// --- Webhook Delivery types ---
+
+export interface WebhookDelivery {
+  id: string;
+  webhook_id: string;
+  event_type: string;
+  status: string;
+  http_status: number;
+  request_body?: string;
+  response_body?: string;
+  created_at: string;
+  delivered_at?: string;
+}
+
+// --- Audit extended types ---
+
+export interface AuditSearchOptions {
+  query?: string;
+  eventType?: string;
+  from?: string;
+  to?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface AuditExportOptions {
+  format?: string;
+  eventType?: string;
+  from?: string;
+  to?: string;
+}
+
+export interface AuditStats {
+  total_events: number;
+  events_by_type: Record<string, number>;
+  events_by_day: Record<string, number>;
+}
+
+export interface AuditAnomaly {
+  id: string;
+  type: string;
+  description: string;
+  severity: string;
+  detected_at: string;
+}
+
+// --- File Metadata & Tags types ---
+
+export interface FileTag {
+  tag: string;
+  created_at: string;
+}
+
+export interface AddTagsRequest {
+  tags: string[];
+}
+
+export interface SetMetadataRequest {
+  metadata: Record<string, string>;
+}
+
+// --- Retention Policy types ---
+
+export interface RetentionPolicy {
+  id: string;
+  name: string;
+  retention_days: number;
+  auto_delete: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateRetentionPolicyRequest {
+  name: string;
+  retention_days: number;
+  auto_delete?: boolean;
+}
+
+export interface UpdateRetentionPolicyRequest {
+  name?: string;
+  retention_days?: number;
+  auto_delete?: boolean;
+}
+
+// --- Legal Hold types ---
+
+export interface LegalHold {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+  file_count: number;
+  created_at: string;
+  released_at?: string;
+}
+
+export interface CreateLegalHoldRequest {
+  name: string;
+  description?: string;
+}
+
+export interface AddLegalHoldFilesRequest {
+  file_ids: string[];
+}
+
+export interface LegalHoldFile {
+  file_id: string;
+  added_at: string;
+}
+
+// --- Folder Permission types ---
+
+export interface FolderPermission {
+  folder_id: string;
+  user_id: string;
+  permission: string;
+  granted_at: string;
+}
+
+export interface SetFolderPermissionRequest {
+  user_id: string;
+  permission: string;
+}
+
+// --- Comment types ---
+
+export interface Comment {
+  id: string;
+  file_id: string;
+  content: string;
+  author_id: string;
+  parent_id?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CreateCommentRequest {
+  content: string;
+  parent_id?: string;
+}
+
+export interface UpdateCommentRequest {
+  content: string;
+}
+
+// --- Quota types ---
+
+export interface QuotaInfo {
+  used_bytes: number;
+  total_bytes: number;
+  file_count: number;
+  max_file_count: number;
+}
+
+// --- Rate Limit types ---
+
+export interface RateLimitInfo {
+  requests_per_minute: number;
+  requests_remaining: number;
+  reset_at: string;
+}
+
+// --- Upload Session types ---
+
+export interface UploadSession {
+  id: string;
+  filename: string;
+  total_size: number;
+  chunk_size: number;
+  chunks_uploaded: number;
+  total_chunks: number;
+  status: string;
+  created_at: string;
+  expires_at: string;
+}
+
+export interface CreateUploadSessionRequest {
+  filename: string;
+  total_size: number;
+  content_type?: string;
+  folder_id?: string;
+}
+
+// --- Job types ---
+
+export interface Job {
+  id: string;
+  type: string;
+  status: string;
+  progress: number;
+  result?: unknown;
+  error?: string;
+  created_at: string;
+  completed_at?: string;
+}
+
+export interface CreateJobRequest {
+  type: string;
+  params?: Record<string, unknown>;
+}
+
+// --- Activity Subscription types ---
+
+export interface ActivitySubscription {
+  id: string;
+  event_types: string[];
+  callback_url: string;
+  created_at: string;
+}
+
+export interface CreateActivitySubscriptionRequest {
+  event_types: string[];
+  callback_url: string;
+}
+
+// --- IP Policy types ---
+
+export interface IPPolicy {
+  enabled: boolean;
+  allowed_ips: string[];
+  denied_ips: string[];
+}
+
+export interface SetIPPolicyRequest {
+  enabled: boolean;
+  allowed_ips?: string[];
+  denied_ips?: string[];
+}
+
+// --- MFA Policy types ---
+
+export interface MFAPolicy {
+  enabled: boolean;
+  required_for: string[];
+}
+
+export interface SetMFAPolicyRequest {
+  enabled: boolean;
+  required_for?: string[];
+}
+
+// --- Encryption Salt types ---
+
+export interface EncryptionSalt {
+  salt: string;
+}
+
+export interface SetEncryptionSaltRequest {
+  salt: string;
+}

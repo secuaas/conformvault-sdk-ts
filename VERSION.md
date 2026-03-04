@@ -1,11 +1,38 @@
 # Historique des Versions - ConformVault TypeScript SDK
 
 ## Version Actuelle
-**2.1.2** - 2026-03-03
+**2.2.0** - 2026-03-04
 
 ---
 
 ## Versions
+
+### 2.2.0 - 2026-03-04
+**Commit:** `pending`
+**Type:** Minor - SDK v2.2.0: 57 new methods across 11 new services (~85% API coverage)
+
+### Ajouté
+- **Webhooks**: `listDeliveries`, `getDelivery`, `replayDelivery`, `reEnable` (4 methods)
+- **Audit**: `search`, `export` (raw Response), `getStats`, `getAnomalies` (4 methods)
+- **Files**: `getThumbnail` (raw Response), `getScanReport` (2 methods)
+- **`metadata.ts`**: `MetadataService` — addTags, removeTag, getTags, listByTag, setMetadata, getMetadata, deleteMetadataKey (7 methods)
+- **`retention.ts`**: `RetentionService` — create, list, get, update, delete (5 methods)
+- **`legal_holds.ts`**: `LegalHoldsService` — create, list, get, release, addFiles, removeFile (6 methods)
+- **`permissions.ts`**: `PermissionsService` — set, get, revoke (3 methods)
+- **`comments.ts`**: `CommentsService` — create, list, get, update, delete, getReplies (6 methods)
+- **`quota.ts`**: `QuotaService` + `RateLimitService` — get (1 method each)
+- **`upload_sessions.ts`**: `UploadSessionsService` — create, uploadChunk, getStatus, complete, cancel (5 methods)
+- **`jobs.ts`**: `JobsService` — create, list, get, cancel (4 methods)
+- **`activity_subscriptions.ts`**: `ActivitySubscriptionsService` — subscribe, list, unsubscribe (3 methods)
+- **`policies.ts`**: `PoliciesService` — getIPPolicy, setIPPolicy, getMFAPolicy, setMFAPolicy, getEncryptionSalt, setEncryptionSalt (6 methods)
+- 30+ new type interfaces in `types.ts`
+- All new services and types exported from `index.ts`
+- Total services: 17 → 28
+
+### Tests effectués
+- ✅ `npm run build` (ESM + CJS) — success
+
+---
 
 ### 2.1.2 - 2026-03-03
 **Commit:** `pending`

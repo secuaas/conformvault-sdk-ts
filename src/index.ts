@@ -34,6 +34,16 @@ export { EncryptionService } from './encryption.js';
 export { TransactionsService } from './transactions.js';
 export { TemplatesService } from './templates.js';
 export { BatchesService } from './batches.js';
+export { MetadataService } from './metadata.js';
+export { RetentionService } from './retention.js';
+export { LegalHoldsService } from './legal_holds.js';
+export { PermissionsService } from './permissions.js';
+export { CommentsService } from './comments.js';
+export { QuotaService, RateLimitService } from './quota.js';
+export { UploadSessionsService } from './upload_sessions.js';
+export { JobsService } from './jobs.js';
+export { ActivitySubscriptionsService } from './activity_subscriptions.js';
+export { PoliciesService } from './policies.js';
 
 // Webhook signature verification
 export { verifyWebhookSignature } from './webhooks.js';
@@ -121,6 +131,55 @@ export type {
   CreateBatchItemDef,
   // Options
   ConformVaultOptions,
+  // Webhook Deliveries
+  WebhookDelivery,
+  // Audit extended
+  AuditSearchOptions,
+  AuditExportOptions,
+  AuditStats,
+  AuditAnomaly,
+  // File Metadata & Tags
+  FileTag,
+  AddTagsRequest,
+  SetMetadataRequest,
+  // Retention Policies
+  RetentionPolicy,
+  CreateRetentionPolicyRequest,
+  UpdateRetentionPolicyRequest,
+  // Legal Holds
+  LegalHold,
+  CreateLegalHoldRequest,
+  AddLegalHoldFilesRequest,
+  LegalHoldFile,
+  // Folder Permissions
+  FolderPermission,
+  SetFolderPermissionRequest,
+  // Comments
+  Comment,
+  CreateCommentRequest,
+  UpdateCommentRequest,
+  // Quota
+  QuotaInfo,
+  // Rate Limit
+  RateLimitInfo,
+  // Upload Sessions
+  UploadSession,
+  CreateUploadSessionRequest,
+  // Jobs
+  Job,
+  CreateJobRequest,
+  // Activity Subscriptions
+  ActivitySubscription,
+  CreateActivitySubscriptionRequest,
+  // IP Policy
+  IPPolicy,
+  SetIPPolicyRequest,
+  // MFA Policy
+  MFAPolicy,
+  SetMFAPolicyRequest,
+  // Encryption Salt
+  EncryptionSalt,
+  SetEncryptionSaltRequest,
 } from './types.js';
 
 // Encryption salt types
